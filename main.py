@@ -1,28 +1,22 @@
-import os
-
 import telebot
 from telebot import types
 
 from config import Config
+from constants import GREENBELKA_URL_TG, GREENBELKA_URL_VK, PROZERO_TEXT, PROZERO_URL_TG
 
 BOT_TOKEN = Config.TG_BOT_TOKEN
 
-# bot = telebot.TeleBot('6547554591:AAFHMXCn0ues0CM2DaUR595ZbOFA2lAcyAQ')
 bot = telebot.TeleBot(BOT_TOKEN)
 
-condition = 0
-prozero_text = "Не принимается на акции, но можно сдать в <i>экоцентре ProZero</i>. Новосибирск, ул. Восход, 1."
-prozero_url_tg = "https://t.me/prozero_eco"
-greenbelka_url_tg = "https://t.me/greenbelka"
-greenbelka_url_vk = "https://vk.com/eco_week"
+# condition = 0
 
 
 def main_menu(message):
     msg = "Чем ещё я могу помочь?"
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text="Начать сортировку", callback_data="начало сортировки"))
-    markup.add(types.InlineKeyboardButton("Перейти в группу зелёной белки ТГ", url=greenbelka_url_tg))
-    markup.add(types.InlineKeyboardButton("Перейти в группу зелёной белки ВК", url=greenbelka_url_vk))
+    markup.add(types.InlineKeyboardButton("Перейти в группу зелёной белки ТГ", url=GREENBELKA_URL_TG))
+    markup.add(types.InlineKeyboardButton("Перейти в группу зелёной белки ВК", url=GREENBELKA_URL_VK))
     bot.send_message(message.chat.id, msg, parse_mode="html", reply_markup=markup)
 
 
@@ -34,8 +28,8 @@ def start_func(message):
     )
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text="Начать сортировку", callback_data="начало сортировки"))
-    markup.add(types.InlineKeyboardButton("Перейти в группу зелёной белки ТГ", url=greenbelka_url_tg))
-    markup.add(types.InlineKeyboardButton("Перейти в группу зелёной белки ВК", url=greenbelka_url_vk))
+    markup.add(types.InlineKeyboardButton("Перейти в группу зелёной белки ТГ", url=GREENBELKA_URL_TG))
+    markup.add(types.InlineKeyboardButton("Перейти в группу зелёной белки ВК", url=GREENBELKA_URL_VK))
     bot.send_message(message.chat.id, greet_message, parse_mode="html", reply_markup=markup)
 
 
@@ -611,9 +605,9 @@ def not_accepted(call):
 @bot.callback_query_handler(func=lambda call: call.data == "экоцентр")
 def prozero(call):
     markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("Перейти в группу экоцентра ProZero", url=prozero_url_tg))
+    markup.add(types.InlineKeyboardButton("Перейти в группу экоцентра ProZero", url=PROZERO_URL_TG))
     markup.add(types.InlineKeyboardButton("Начать сортировку сначала", callback_data="начало сортировки"))
-    bot.send_message(call.message.chat.id, prozero_text, parse_mode="html", reply_markup=markup)
+    bot.send_message(call.message.chat.id, PROZERO_TEXT, parse_mode="html", reply_markup=markup)
 
 
 # обработка различных текстовых сообщений
@@ -643,8 +637,8 @@ def group_link(message):
         start_func(message)
     elif message.text == "Перейти в группу зелёной белки":
         markup = types.InlineKeyboardMarkup()
-        markup.add(types.InlineKeyboardButton("Перейти в группу зелёной белки ТГ", url=greenbelka_url_tg))
-        markup.add(types.InlineKeyboardButton("Перейти в группу зелёной белки ВК", url=greenbelka_url_vk))
+        markup.add(types.InlineKeyboardButton("Перейти в группу зелёной белки ТГ", url=GREENBELKA_URL_TG))
+        markup.add(types.InlineKeyboardButton("Перейти в группу зелёной белки ВК", url=GREENBELKA_URL_VK))
         bot.send_message(
             message.chat.id,
             "Ты можешь перейти в группы по одной из следующих ссылок",
