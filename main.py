@@ -103,10 +103,10 @@ def technic(call):
     main_menu(call.message)
 
 
-@bot.callback_query_handler(func=lambda call: call.data[:6] == "бумага")  # TODO заменить на startwith?
+@bot.callback_query_handler(func=lambda call: call.data[:6] == "бумага")  # TODO заменить на startswith?
 def paper(call):
     if call.data == "бумага":
-        photo = open("Пульперкартон.jpg", "rb")
+        photo = open("static/img/paper/pulperboard.jpg", "rb")
         bot.send_photo(call.message.chat.id, photo)
         markup = types.InlineKeyboardMarkup()
         markup.add(types.InlineKeyboardButton("Да", callback_data="экоцентр"))
